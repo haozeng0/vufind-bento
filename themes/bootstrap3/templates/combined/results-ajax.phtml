@@ -24,3 +24,5 @@ JS;
 <p><i class="fa fa-spinner fa-spin" aria-hidden="true"></i> <?=$this->transEsc("Loading")?>...</p>
 <?=$this->inlineScript(\Zend\View\Helper\HeadScript::SCRIPT, $loadJs, 'SET')?>
 <noscript><?=$this->transEsc('Please enable JavaScript.')?></noscript>
+
+<?  $this->headLink()->appendStylesheet('EDS.css'); ?>
