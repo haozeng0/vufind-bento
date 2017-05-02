@@ -1,5 +1,5 @@
-.combined-list .result .left   {width:25%}
-.combined-list .result .middle {width:75%}
+.combined-list .result .media-left   {display:none}
+.combined-list .result .middle {width:96%}
 .combined-list .result .right  {display:none}
 .result {padding-right:0}
 .result > .col-xs-1.checkbox {padding-right:0;width:10%}
