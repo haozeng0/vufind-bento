@@ -8,9 +8,19 @@
   // More link should use default limit, not custom limit:
   $limit = $params->getLimit();
   $params->setLimit($params->getOptions()->getDefaultLimit());
-  $moreUrl = $this->url($params->getOptions()->getSearchAction()) . $results->getUrlQuery()->setPage(1);
-  $params->setLimit($limit);
-?>
+  
+  //Redirect $moreUrl back to vendor interface:
+  if ($currentSearch['label']=='Articles & more'): 
+ $moreUrl = "http://search.ebscohost.com/login.aspx?direct=true&site=eds-live&scope=site&type=0&custid=s8953837&groupid=main&profid=eds&mode=bool&lang=en&authtype=cookie,ip,guest&bquery=".urlencode($lookfor)."+AND+PZ+Article";
+ elseif($currentSearch['label'] =='Research Guides'):
+$moreUrl = "http://guides.wpunj.edu/srch.php?q=".urlencode($lookfor);
+ elseif($currentSearch['label']!=='Articles' or $currentSearch['label'] !=='Research Guides'):
+   $moreUrl = $this->url($params->getOptions()->getSearchAction()) . $results->getUrlQuery()->setPage(1);
+ endif; 
+   $params->setLimit($limit);
+ ?>
+  
+  
 <? if (isset($currentSearch['more_link']) && $currentSearch['more_link']): ?>
   <div class="pull-right flip">
     <a href="<?=$moreUrl?>" class="btn btn-link"><i class="fa fa-gears" aria-hidden="true"></i> <?=$this->transEsc('More options')?></a>
@@ -47,8 +57,7 @@
   </div>
 </div>
 <? /* End Listing Options */ ?>
-
-<? if ($recordTotal < 1): ?>
+  <? if ($recordTotal < 1): ?>
   <p class="alert alert-danger">
     <? if (isset($view->overrideEmptyMessage)): ?>
       <?=$view->overrideEmptyMessage?>
