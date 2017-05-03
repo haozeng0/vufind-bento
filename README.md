@@ -51,15 +51,14 @@ version = 1
 [Layout]
 columns = 3	- or 2 columns
 ```
-Install php:cURL for EDS API</br>
-Php5:</br>
+Install php:cURL for EDS API
+``` sh
+php5:
 sudo apt-get install php5-curl
-
-php7:</br>
+php7:
 sudo apt-get install php-curl
-
 restart Apache2
-
+```
 3. Remove Thumbnails/pics in combined search result page
 
 \theme\bootstrap3\css\combined-search.css</br>
@@ -79,7 +78,7 @@ to
 4. Add missing EDS style sheet in ajax
 
 \themes\bootstrap3\templates\combined\results-ajax.phtml</br>
-Add line in the end:
+Add this line in the end:
 ``` sh
 <?  $this->headLink()->appendStylesheet('EDS.css'); ?>
 ```
