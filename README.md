@@ -1,31 +1,29 @@
 [![Build Status](https://travis-ci.org/vufind-org/vufind.svg?branch=master)](https://travis-ci.org/vufind-org/vufind)
-VuFind Bento Box 
-##Hacking VuFind Combined Search And Making Bento Searching easy - based on VuFind 3.1.3
+# VuFind Bento Box 
+## Hacking VuFind Combined Search And Making Bento Searching easy - based on VuFind 3.1.3
 ======
-##Set up ILS & Index the catalog
+## Set up ILS & Index the catalog
 VuFind Installation: https://vufind.org/wiki/installation</br>
 MARC Export Notes for different ILS: https://vufind.org/wiki/indexing:marc:export_notes</br>
 MARC Records Import: https://vufind.org/wiki/indexing:marc</br>
 Automation: https://vufind.org/wiki/administration:automation</br>
 
-##Contact Vendor and request to enable API access. 
-
+## Contact Vendor and request to enable API access. 
 Summon: https://api.summon.serialssolutions.com/</br>
 EDS: https://www.ebscohost.com/discovery/api</br>
 PrimoCentral: https://developers.exlibrisgroup.com/primo/apis</br>
 
-##Active Combined Search
-
+## Active Combined Search
 Once you received the API information from your vendor, you can:
 
-Summon:</br>
+### Summon
 /local/config/vufind/config.ini
 ``` sh
 [Summon]
 apiId        = myAccessId
 apiKey       = mySecretKey
 ```
-EDS:</br>
+### EDS
 /local/config/vufind/EDS.ini
 ``` sh
 [EBSCO_Account]
@@ -35,10 +33,10 @@ password  = [PASSWORD]
 profile   = [PROFILE]
 organization_id = "VuFind 2.x from MyUniversity"
 ```
-PrimoCentral:</br>
-/local/config/vufind/primo.ini</br>
+### PrimoCentral
+/local/config/vufind/primo.ini
 
-LibGuides:</br>
+### LibGuides
 /local/config/vufind/libguides.ini
 ``` sh
 ; Your institution id (called site id in api version 2; may have changed w/ upgrade)
@@ -60,8 +58,7 @@ php7:
 sudo apt-get install php-curl
 restart Apache2
 ```
-##Remove Thumbnail/book cover in combined search result page
-
+## Remove Thumbnail/book cover in combined search result page
 /theme/bootstrap3/css/combined-search.css</br>
 change
 ``` sh
@@ -76,19 +73,16 @@ to
 .combined-list .result .right  {display:none}
 ```
 
-##Add missing EDS style sheet in ajax
-
+## Add missing EDS style sheet in ajax
 /themes/bootstrap3/templates/combined/results-ajax.phtml</br>
 Add this line in the end:
 ``` sh
 <?  $this->headLink()->appendStylesheet('EDS.css'); ?>
 ```
-##Redirect more URL back to vendor search interface
-
+## Redirect more URL back to vendor search interface
 /themes/bootstrap3/templates/combined/results-list.phtml</br>
 $lookfor is the variable of search query</br>
-$moreUrl represents the URL that redirect to by different type of resources.
-
+$moreUrl represents the URL that redirect to by different type of resources.</br>
 Change:
 ``` sh
   $moreUrl = $this->url($params->getOptions()->getSearchAction()) . $results->getUrlQuery()->setPage(1);
