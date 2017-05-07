@@ -1,7 +1,6 @@
 [![Build Status](https://travis-ci.org/vufind-org/vufind.svg?branch=master)](https://travis-ci.org/vufind-org/vufind)
 # VuFind Bento Box 
-## Hacking VuFind Combined Search And Making Bento Searching easy - based on VuFind 3.1.3
-======
+Hacking VuFind Combined Search And Making Bento Searching easy - based on VuFind 3.1.3
 ## Set up ILS & Index the catalog
 VuFind Installation: https://vufind.org/wiki/installation</br>
 MARC Export Notes for different ILS: https://vufind.org/wiki/indexing:marc:export_notes</br>
@@ -14,7 +13,7 @@ EDS: https://www.ebscohost.com/discovery/api</br>
 PrimoCentral: https://developers.exlibrisgroup.com/primo/apis</br>
 
 ## Active Combined Search
-Once you received the API information from your vendor, you can:
+Insert API information to:
 
 ### Summon
 /local/config/vufind/config.ini
@@ -33,6 +32,14 @@ password  = [PASSWORD]
 profile   = [PROFILE]
 organization_id = "VuFind 2.x from MyUniversity"
 ```
+Install php:cURL for EDS API
+``` sh
+php5:
+sudo apt-get install php5-curl
+php7:
+sudo apt-get install php-curl
+restart Apache2
+```
 ### PrimoCentral
 /local/config/vufind/primo.ini
 
@@ -45,18 +52,39 @@ iid = my-id
 ; API version to use (1 or 2)
 version = 1
 ```
+### combined.ini
 /local/config/vufind/combined.ini
 ``` sh
 [Layout]
 columns = 3	- or 2 columns
 ```
-Install php:cURL for EDS API
 ``` sh
-php5:
-sudo apt-get install php5-curl
-php7:
-sudo apt-get install php-curl
-restart Apache2
+[Solr]
+label = "Books & Media"
+sublabel = "library books, e-books, videos, CDs, local resources"
+more_link = "More Catalog Results"
+limit = 10
+
+;[Summon]
+;label = Summon
+;sublabel = "full-text articles, e-books, electronic subscription resources"
+;more_link = "More Summon results"
+;ajax = true
+;limit = 10
+
+[EDS]
+label = "Articles & More"
+sublabel = "full-text articles, electronic subscription resources"
+more_link = "More Article Results"
+ajax = true
+limit = 10
+
+[LibGuides]
+label = Research Guides
+;sublabel = "Subject Guides created by librarians"
+ajax = true
+more_link = "More LibGuides Results"
+limit = 5
 ```
 ## Remove Thumbnail/book cover in combined search result page
 /theme/bootstrap3/css/combined-search.css</br>
@@ -100,7 +128,7 @@ $moreUrl = "http://guides.wpunj.edu/srch.php?q=".urlencode($lookfor);
    $params->setLimit($limit);
 ```
 
-##Add Database Recommendation
+## Add Database Recommendation
 Add databases section after “Research Guides”</br>
 /themes/bootstrap3/templates/combined/results-list.phtml</br>
 insert code before the last <? endif; ?>
